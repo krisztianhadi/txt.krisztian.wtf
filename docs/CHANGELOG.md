@@ -57,3 +57,8 @@ Dated entries, tagged Feature/Fix/Break.
     root, generated deterministically by `tools/gen-favicon.py`
     (Liberation Serif Bold on 512 canvas, LANCZOS downscale).
   - Remote krisztian.wtf favicon link dropped.
+
+## 2026-09-08
+
+- [Feature] Umami analytics added to every page head
+  (ramen.lostsignals.studio, website-id 66d6b81d-cb0c-41cc-922b-d6de14ab9a38).
