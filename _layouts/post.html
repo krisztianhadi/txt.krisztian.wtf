@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<p class="crumb"><a href="{{ '/' | relative_url }}">← list.txt</a></p>
+
+<article>
+    <header>
+        <h1>{{ page.title }}</h1>
+        <p class="post-meta"><em><time datetime="{{ page.date | date_to_xmlschema }}">{% include human-date.html date=page.date %}</time></em></p>
+    </header>
+
+    {{ content }}
+</article>
+
+<hr />
+
+<p class="crumb">
+    <a href="{{ '/' | relative_url }}">← list.txt</a>
+    ·
+    <a href="{{ '/feed.xml' | relative_url }}">rss</a>
+</p>

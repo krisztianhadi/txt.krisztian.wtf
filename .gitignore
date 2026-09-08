@@ -1,2 +1,17 @@
-.*
-!/.gitignore
+# Jekyll build output and caches
+/_site/
+/.jekyll-cache/
+/.sass-cache/
+*.gem
+
+# local tool dirs (sandbox-only, never commit)
+/.gems/
+/.xdg-cache/
+/.tmp-docker/
+
+# local GitHub credentials (never commit)
+/.github-token
+/.git-credentials
+
+# misc
+.DS_Store

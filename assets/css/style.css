@@ -1,0 +1,270 @@
+/* Braindump - txt.krisztian.wtf
+   Fresh look: off-white paper + dark gray serif text.
+   Night mode follows the OS setting (prefers-color-scheme), no manual toggle.
+   Contrast checked: body ~13:1, muted ~5:1, links ~6.7:1 (light) / ~11:1 (dark). */
+
+:root {
+    color-scheme: light dark;
+
+    /* light */
+    --bg: #f7f4ef;
+    --fg: #2a2825;
+    --muted: #6e6a60;
+    --link: #9a3412;
+    --link-hover: #7c2505;
+    --line: rgba(42, 40, 37, 0.16);
+    --code-bg: #efeae0;
+    --mark-bg: #f2dc9f;
+
+    /* rouge token colors, light */
+    --tok-comment: #7d7668;
+    --tok-keyword: #7c2505;
+    --tok-string: #6f5210;
+    --tok-number: #5c4a86;
+    --tok-function: #245a4b;
+    --tok-operator: #5a4632;
+    --tok-tag: #7c2505;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* dark */
+        --bg: #161412;
+        --fg: #e7e2d6;
+        --muted: #a8a195;
+        --link: #e49a5e;
+        --link-hover: #f0b37e;
+        --line: rgba(231, 226, 214, 0.18);
+        --code-bg: #221f1a;
+        --mark-bg: #57492a;
+
+        /* rouge token colors, dark */
+        --tok-comment: #9a927f;
+        --tok-keyword: #e49a5e;
+        --tok-string: #d8b46a;
+        --tok-number: #b7a6e0;
+        --tok-function: #7fc4ab;
+        --tok-operator: #cfc4b4;
+        --tok-tag: #e49a5e;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 17px;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino,
+        Georgia, "Times New Roman", Times, serif;
+    font-size: 1rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+wrapper {
+    display: block;
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+}
+
+/* headings: same serif, tightened, no uppercase shout */
+h1, h2, h3, h4 {
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    margin: 2rem 0 0.75rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-top: 0;
+}
+
+/* homepage masthead: flush h1 above the tagline */
+main section:first-of-type h1 {
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.45rem;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+p {
+    margin: 0 0 1.1rem;
+}
+
+/* links */
+a {
+    color: var(--link);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.18em;
+}
+
+a:hover {
+    color: var(--link-hover);
+}
+
+/* outbound links (added by scripts/external-links.py at build) get
+   the same lucide arrow-up-right icon krisztian.wtf uses */
+/* Outbound link icon */
+a.ext::after {
+  background: currentColor;
+  content: "";
+  display: inline-block;
+  height: 0.8em;
+  margin-left: 0.2em;
+  width: 0.8em;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center/contain;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center/contain;
+    vertical-align: -0.1em;
+}
+
+:focus-visible {
+    outline: 2px solid var(--link);
+    outline-offset: 3px;
+    border-radius: 2px;
+}
+
+::selection {
+    background: var(--mark-bg);
+    color: var(--fg);
+}
+
+/* inline code + code fences stay monospace (code in serif is unreadable) */
+code, kbd, samp {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+p code, li code {
+    display: inline-block;
+    background: var(--code-bg);
+    border-radius: 4px;
+    font-size: 0.82em;
+    padding: 0.1em 0.4em;
+}
+
+pre {
+    background: var(--code-bg);
+    border-radius: 8px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    margin: 1.4rem 0;
+    overflow-x: auto;
+    padding: 1rem 1.15rem;
+}
+
+pre code {
+    background: transparent;
+    display: block;
+    font-size: inherit;
+    padding: 0;
+}
+
+/* rouge token mapping */
+.highlight .c, .highlight .c1, .highlight .cm, .highlight .cp, .highlight .cs { color: var(--tok-comment); font-style: italic; }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kt { color: var(--tok-keyword); font-weight: 600; }
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sb, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx { color: var(--tok-string); }
+.highlight .m, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .mo { color: var(--tok-number); }
+.highlight .n, .highlight .na, .highlight .nb, .highlight .nc, .highlight .nf, .highlight .nl, .highlight .nn, .highlight .nv, .highlight .nx { color: var(--tok-function); }
+.highlight .o, .highlight .p { color: var(--tok-operator); }
+.highlight .nt { color: var(--tok-tag); }
+
+/* prose bits */
+blockquote {
+    border-left: 3px solid var(--line);
+    color: var(--muted);
+    font-style: italic;
+    margin: 1.5rem 0;
+    padding: 0.1em 0 0.1em 1.25em;
+}
+
+/* paragraphs inside a quote: no trailing margin, so no phantom gap below */
+blockquote p {
+    margin: 0 0 0.5rem;
+}
+
+blockquote p:last-child {
+    margin: 0;
+}
+
+mark {
+    background: var(--mark-bg);
+    color: var(--fg);
+    padding: 0 0.15em;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 2.5rem 0;
+}
+
+ul, ol {
+    padding-left: 1.4rem;
+    margin: 0 0 1.1rem;
+}
+
+li {
+    margin: 0.3rem 0;
+}
+
+img {
+    display: block;
+    height: auto;
+    margin: 1.75rem auto;
+    max-width: 100%;
+}
+
+img + em, figcaption {
+    color: var(--muted);
+    display: block;
+    font-size: 0.85rem;
+    margin: -1.25rem auto 1.75rem;
+    text-align: center;
+}
+
+/* home post list + post meta + crumbs */
+footer {
+    color: var(--muted);
+    font-size: 0.9em;
+    margin-top: 2.75rem;
+}
+
+.post-row time {
+    color: var(--muted);
+    margin-right: 1em;
+}
+
+.post-meta {
+    color: var(--muted);
+    font-size: 0.9em;
+    margin-top: -0.5rem;
+}
+
+.crumb {
+    font-size: 0.9em;
+}
+
+@media (max-width: 30rem) {
+    wrapper {
+        padding: 2rem 1.2rem 4rem;
+    }
+
+    .post-row time {
+        display: block;
+        margin: 0;
+    }
+}

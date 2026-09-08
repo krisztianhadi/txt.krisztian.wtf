@@ -1,57 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: default
+---
+<section>
+    <h1>krisztian.txt</h1>
+    <p><em>Chop wood, carry water, dump brain.</em></p>
+</section>
 
-<head>
-    <meta charset="UTF-8" />
-    <title>Krisztián's random thoughts on tech, design and more...'</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="Random thoughts, mostly my handwritten notes converted to the world wide web." />
+<section>
+    {% if site.posts.size == 0 %}
+        <p>Sorry, no posts yet.</p>
+    {% else %}
+        {% for post in site.posts %}
+            <p class="post-row">
+                <time datetime="{{ post.date | date_to_xmlschema }}">{% include human-date.html date=post.date %}</time> -
+                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </p>
+        {% endfor %}
+    {% endif %}
 
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
+</section>
 
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" type="text/css" href="https://krisztian.wtf/style.css" />
-    <link rel="icon" href="https://krisztian.wtf/favicon.png">
-
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black" />
-
-    <meta property="og:title" content="Krisztián's Braindump - Asorted thoughts on tech, design and more..." />
-    <meta property="og:description" content="Random thoughts, mostly my handwritten notes converted to the world wide web." />
-    <meta property="og:image" content="https://krisztian.wtf/krisztian-hadi.jpg" />
-
-    <meta name="twitter:card" content="https://krisztian.wtf/krisztian-hadi.jpg" />
-    <meta name="twitter:site" content="@krisztian" />
-    <meta name="twitter:title" content="Krisztián's Braindump - Asorted thoughts on tech, design and more..." />
-    <meta name="twitter:description" content="Random thoughts, mostly my handwritten notes converted to the world wide web." />
-    <meta name="twitter:image" content="https://krisztian.wtf/krisztian-hadi.jpg" />
-</head>
-
-<body>
-    <wrapper>
-        <main>
-            <h1>Braindump</h1>
-
-            <section>
-                <p>In this little corner of the internet I share <mark>my own thoughts with my own words and my own grammatical mistakes</mark>. Mostly my on paper notes converted to the world wide web, in plain, handcrafted HTML with <s>RSS</s>.</p>
-
-                <p>Enjoy.</p>
-
-            </section>
-
-            <hr />
-
-            <section>
-                <h2>Latest posts</h2>
-                
-                <p>Sorry, no posts yet.</p>
-                
-            </section>
-
-        </main>
-    </wrapper>
-</body>
-
-</html>
+<footer>
+    Made with ❤ in 2026 · <a href="{{ '/feed.xml' | relative_url }}">rss</a>
+</footer>

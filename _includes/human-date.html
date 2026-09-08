@@ -1,0 +1,21 @@
+{%- comment -%}
+Human date: "September 8th, 2026" (US style, ordinal suffix).
+Usage: {% include human-date.html date=post.date %}
+{%- endcomment -%}
+{%- assign day = include.date | date: "%d" | plus: 0 -%}
+{%- assign rem100 = day | modulo: 100 -%}
+{%- if rem100 >= 11 and rem100 <= 13 -%}
+    {%- assign suffix = "th" -%}
+{%- else -%}
+    {%- assign rem10 = day | modulo: 10 -%}
+    {%- if rem10 == 1 -%}
+        {%- assign suffix = "st" -%}
+    {%- elsif rem10 == 2 -%}
+        {%- assign suffix = "nd" -%}
+    {%- elsif rem10 == 3 -%}
+        {%- assign suffix = "rd" -%}
+    {%- else -%}
+        {%- assign suffix = "th" -%}
+    {%- endif -%}
+{%- endif -%}
+{{ include.date | date: "%B %-d" }}{{ suffix }}, {{ include.date | date: "%Y" }}

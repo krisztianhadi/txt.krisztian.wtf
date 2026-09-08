@@ -1,0 +1,30 @@
+# krisztian.txt - txt.krisztian.wtf
+# Jekyll config. See docs/ARCHITECTURE.md and docs/SETUP.md.
+
+title: krisztian.txt
+description: >-
+  Short, messy notes and thoughts from Krisztian, dumped as txt on the web.
+author: Krisztian
+url: "https://txt.krisztian.wtf"
+
+# Build output lives in _site/ and is uploaded by .github/workflows/pages.yml.
+destination: _site
+
+# Post URLs are just the slug: /hello-world/
+permalink: /:title/
+
+# Render posts dated in the future too (no scheduled posts today).
+future: true
+
+# RSS dates come out in this zone (user is UTC+7).
+timezone: Asia/Bangkok
+
+# Markdown + code highlighting (same defaults as GitHub Pages).
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Only files needed by the build are copied/rendered; everything else (docs,
+# workflows) stays out of _site.
