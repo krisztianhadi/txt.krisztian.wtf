@@ -26,16 +26,22 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
-      # The github-pages gem excludes CNAME from its output by design; the
-      # custom domain only keeps working if the file is in the artifact.
-      - name: Keep CNAME in artifact
-        run: cp CNAME _site/CNAME
+      # The github-pages gem excludes CNAME from its output by design, and
+      # _site/ is root-owned (container build), so stage into a fresh dir
+      # the runner can write before adding the CNAME for the artifact.
+      - name: Stage artifact + CNAME
+        run: |
+          mkdir -p _deploy
+          cp -r _site/. _deploy/
+          cp CNAME _deploy/CNAME
       # Jekyll runs in safe mode here (no _plugins), so outbound links get
       # their new-tab treatment in this post-build pass instead.
       - name: Annotate external links
-        run: python3 scripts/external-links.py _site
+        run: python3 scripts/external-links.py _deploy
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_deploy
 
   deploy:
     environment:
