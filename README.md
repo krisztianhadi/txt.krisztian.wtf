@@ -1,27 +1,20 @@
-# krisztian.txt - txt.krisztian.wtf
+# Notes and Stuff by K - txt.krisztian.wtf
 
 A minimal [Jekyll](https://jekyllrb.com) blog served on GitHub Pages.
 Markdown posts in, static HTML out. Images are copied through as plain
-files. A valid RSS 2.0 feed is generated at `/feed.xml`.
+files. Every article gets its own title, description and 1200x630 share
+card, and a valid RSS 2.0 feed is generated at `/feed.xml`.
 
 ## Quick start (local preview)
 
-Preview uses the same container as CI, so what you see is what deploys:
-
 ```sh
-docker run --rm \
-  -e INPUT_SOURCE=./ -e INPUT_DESTINATION=./_site \
-  -e INPUT_VERBOSE=false -e INPUT_FUTURE=false \
-  -e INPUT_BUILD_REVISION=local -e INPUT_TOKEN=local \
-  -e GITHUB_WORKSPACE=/workspace \
-  -v "$PWD":/workspace \
-  ghcr.io/actions/jekyll-build-pages:v1.0.13
-
-python3 -m http.server 4000 --directory _site
+bash scripts/dev.sh          # -> http://localhost:4000
 ```
 
-Open http://localhost:4000. (Full command, plus a plain-`jekyll` option for
-machines with ruby-dev, in docs/SETUP.md.)
+Builds through the same container CI uses, serves `_site/` with browser-sync
+and reloads the browser on every save (~3 s rebuild). `bash scripts/build.sh`
+rebuilds without serving; `PORT=4100 bash scripts/dev.sh` uses another port.
+Details, including a plain-`jekyll` option, are in docs/SETUP.md.
 
 ## Write a post
 
@@ -35,8 +28,13 @@ machines with ruby-dev, in docs/SETUP.md.)
    ```
 
 2. Drop images into `assets/images/` and reference them from Markdown.
-3. Push to `main`. GitHub Actions builds and deploys - see
+3. If the preview is running, the post's share card regenerates on save.
+   Otherwise run `node tools/gen-og.mjs` (skips cards that are up to date).
+4. Push to `main`. GitHub Actions builds and deploys - see
    `.github/workflows/pages.yml`.
+
+Front matter a post may also set: `description` (overrides the generated
+summary) and `image` (overrides the generated card).
 
 ## Deploy
 
