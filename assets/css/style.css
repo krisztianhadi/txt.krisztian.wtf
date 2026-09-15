@@ -6,6 +6,13 @@
 :root {
     color-scheme: light dark;
 
+    /* Source Serif 4 for text, Fraunces for headlines (Google Fonts), both
+       with a system serif fallback */
+    --font-serif: "Source Serif 4", ui-serif, "Iowan Old Style",
+        "Palatino Linotype", Palatino, Georgia, "Times New Roman", Times, serif;
+    --font-display: "Fraunces", ui-serif, Georgia, "Times New Roman", Times,
+        serif;
+
     /* light */
     --bg: #f7f4ef;
     --fg: #2a2825;
@@ -28,24 +35,26 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
-        /* dark */
-        --bg: #161412;
-        --fg: #e7e2d6;
-        --muted: #a8a195;
-        --link: #e49a5e;
-        --link-hover: #f0b37e;
-        --line: rgba(231, 226, 214, 0.18);
-        --code-bg: #221f1a;
+        /* dark: the near-black bg + off-white text combination caused halation
+           (text read dim and smudged). Lifting the bg and brightening the
+           text keeps contrast high without the glow. */
+        --bg: #1b1917;
+        --fg: #f0ece2;
+        --muted: #b3ab9d;
+        --link: #eda468;
+        --link-hover: #f7bd88;
+        --line: rgba(240, 236, 226, 0.2);
+        --code-bg: #262320;
         --mark-bg: #57492a;
 
         /* rouge token colors, dark */
-        --tok-comment: #9a927f;
-        --tok-keyword: #e49a5e;
-        --tok-string: #d8b46a;
-        --tok-number: #b7a6e0;
-        --tok-function: #7fc4ab;
-        --tok-operator: #cfc4b4;
-        --tok-tag: #e49a5e;
+        --tok-comment: #a49b87;
+        --tok-keyword: #eda468;
+        --tok-string: #e0bd72;
+        --tok-number: #c1b1e8;
+        --tok-function: #8bcfb6;
+        --tok-operator: #d8cec0;
+        --tok-tag: #eda468;
     }
 }
 
@@ -61,10 +70,9 @@ body {
     margin: 0;
     background: var(--bg);
     color: var(--fg);
-    font-family: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino,
-        Georgia, "Times New Roman", Times, serif;
+    font-family: var(--font-serif);
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -76,11 +84,13 @@ wrapper {
     padding: 3rem 1.5rem 5rem;
 }
 
-/* headings: same serif, tightened, no uppercase shout */
+/* headings: Fraunces at its own axis defaults (SOFT 0, WONK 1 - the font
+   ships wonk on), weight 600, no uppercase shout */
 h1, h2, h3, h4 {
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-weight: 600;
     line-height: 1.25;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.005em;
     margin: 2rem 0 0.75rem;
 }
 
@@ -89,9 +99,22 @@ h1 {
     margin-top: 0;
 }
 
-/* homepage masthead: flush h1 above the tagline */
+/* homepage masthead: larger than article headings (it sets the page's tone
+   and is only a few words long) */
 main section:first-of-type h1 {
+    font-size: clamp(2.4rem, 7.5vw, 3.1rem);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
     margin: 0;
+}
+
+main section:first-of-type p {
+    margin: 0.5rem 0 0;
+}
+
+/* gap between the masthead block and the first entry */
+main > section + section {
+    margin-top: 3rem;
 }
 
 h2 {
@@ -130,6 +153,34 @@ a.ext::after {
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center/contain;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'%3E%3C/path%3E%3Cpolyline points='15 3 21 3 21 9'%3E%3C/polyline%3E%3Cline x1='10' y1='14' x2='21' y2='3'%3E%3C/line%3E%3C/svg%3E") no-repeat center/contain;
     vertical-align: -0.1em;
+}
+
+/* Inline nav arrows: Libre Baskerville ships no arrow glyphs (verified in all
+   four Google subsets), so a Unicode arrow would come from whatever fallback
+   font the OS picks. Same lucide family as the outbound-link icon instead. */
+.icon-arrow-right::after,
+.icon-arrow-left::before {
+    background: currentColor;
+    content: "";
+    display: inline-block;
+    height: 0.75em;
+    vertical-align: -0.06em;
+    width: 0.75em;
+    mask: no-repeat center/contain;
+    -webkit-mask: no-repeat center/contain;
+}
+
+.icon-arrow-right::after {
+    margin-left: 0.35em;
+    /* lucide move-right */
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8L22 12L18 16'%3E%3C/path%3E%3Cpath d='M2 12H22'%3E%3C/path%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8L22 12L18 16'%3E%3C/path%3E%3Cpath d='M2 12H22'%3E%3C/path%3E%3C/svg%3E");
+}
+
+.icon-arrow-left::before {
+    margin-right: 0.35em;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5'%3E%3C/path%3E%3Cpath d='m12 19-7-7 7-7'%3E%3C/path%3E%3C/svg%3E");
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 12H5'%3E%3C/path%3E%3Cpath d='m12 19-7-7 7-7'%3E%3C/path%3E%3C/svg%3E");
 }
 
 :focus-visible {
@@ -243,15 +294,144 @@ footer {
     margin-top: 2.75rem;
 }
 
-.post-row time {
-    color: var(--muted);
-    margin-right: 1em;
+/* home entries: title, date, formatted preview, read more */
+.post-item + .post-item {
+    border-top: 1px solid var(--line);
+    padding-top: 2.25rem;
+}
+
+.post-item {
+    margin-bottom: 2.25rem;
+}
+
+.post-item:last-of-type {
+    margin-bottom: 0.5rem;
+}
+
+.post-title {
+    font-size: 1.35rem;
+    line-height: 1.3;
+    margin: 0 0 0.35rem;
+}
+
+.post-title a {
+    color: var(--fg);
+    text-decoration: none;
+}
+
+.post-title a:hover {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+.post-item .post-meta {
+    margin: 0 0 1rem;
+}
+
+/* preview keeps the article's own formatting, cut after two blocks; body
+   colour, only the date stays muted (consistent with the article page) */
+.post-excerpt {
+    color: var(--fg);
+    font-size: 0.95em;
+    line-height: 1.65;
+}
+
+.post-excerpt p {
+    margin: 0 0 0.65rem;
+}
+
+.post-excerpt > :last-child {
+    margin-bottom: 0;
+}
+
+.post-excerpt blockquote {
+    font-size: 0.95em;
+    margin: 0.65rem 0;
+}
+
+.post-more {
+    font-size: 0.95em;
+    margin: 0.9rem 0 0;
+}
+
+.post-more a {
+    text-decoration: none;
+}
+
+.post-more a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+/* Article head: the share card's layout (tools/gen-og.mjs), user-tuned.
+   Sizes are whole px, like the card - rem against the 17px base would give
+   fractional values (1.15rem = 19.55px). Body text stays in rem, so it still
+   follows the browser's font-size preference; this head is a fixed block. */
+.post-head {
+    align-items: baseline;
+    display: flex;
+    gap: 17px;
+    justify-content: space-between;
+    margin: 0 0 23px;
+}
+
+.post-head .post-meta {
+    font-size: 16px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.post-rule {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 23px 0 16px;
+}
+
+/* the article title: 38px against a 20px wordmark (the card uses 2.6x) */
+article > header h1 {
+    font-size: clamp(29px, 5.87vw, 38px);
+    letter-spacing: -0.02em;
+    line-height: 1.06;
+}
+
+.site-mark {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0;
+}
+
+.site-mark a {
+    color: var(--fg);
+    text-decoration: none;
+}
+
+.site-mark a:hover {
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+}
+
+/* article rhythm: the crumb sets the gap above the title, the date sets the
+   gap below it (no negative-margin hacks) */
+.crumb {
+    margin: 0 0 2rem;
+}
+
+article > header h1 {
+    margin-top: 0;
 }
 
 .post-meta {
     color: var(--muted);
     font-size: 0.9em;
-    margin-top: -0.5rem;
+    margin: 0.45rem 0 1.9rem;
+}
+
+hr + .crumb {
+    margin-top: 2.25rem;
 }
 
 .crumb {
@@ -263,8 +443,8 @@ footer {
         padding: 2rem 1.2rem 4rem;
     }
 
-    .post-row time {
-        display: block;
-        margin: 0;
+    .post-title {
+        font-size: 1.25rem;
     }
 }
+

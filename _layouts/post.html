@@ -1,13 +1,17 @@
 ---
 layout: default
 ---
-<p class="crumb"><a href="{{ '/' | relative_url }}">← all txt</a></p>
+<div class="post-head">
+    <p class="site-mark"><a href="{{ '/' | relative_url }}">{{ site.masthead }}</a></p>
+    <p class="post-meta"><em><time datetime="{{ page.date | date_to_xmlschema }}">{% include human-date.html date=page.date %}</time></em></p>
+</div>
 
 <article>
     <header>
         <h1>{{ page.title }}</h1>
-        <p class="post-meta"><em><time datetime="{{ page.date | date_to_xmlschema }}">{% include human-date.html date=page.date %}</time></em></p>
     </header>
+
+    <hr class="post-rule" />
 
     {{ content }}
 </article>
@@ -15,5 +19,5 @@ layout: default
 <hr />
 
 <p class="crumb">
-    <a href="{{ '/' | relative_url }}">← all txt</a>
+    <a class="icon-arrow-left" href="{{ '/' | relative_url }}">back to home</a>
 </p>

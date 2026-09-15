@@ -1,9 +1,10 @@
 ---
 layout: default
+subtitle: Chop wood, carry water, empty brain.
 ---
 <section>
-    <h1>txt by k</h1>
-    <p><em>Chop wood, carry water, empty brain.</em></p>
+    <h1>{{ site.masthead }}</h1>
+    <p><em>{{ page.subtitle }}</em></p>
 </section>
 
 <section>
@@ -11,10 +12,23 @@ layout: default
         <p>Sorry, no posts yet.</p>
     {% else %}
         {% for post in site.posts %}
-            <p class="post-row">
-                <time datetime="{{ post.date | date_to_xmlschema }}">{% include human-date.html date=post.date %}</time> 
-                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            </p>
+            {%- assign blocks = post.content | split: '</p>' -%}
+            <article class="post-item">
+                <h2 class="post-title"><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+                <p class="post-meta"><em><time datetime="{{ post.date | date_to_xmlschema }}">{% include human-date.html date=post.date %}</time></em></p>
+                <div class="post-excerpt">
+                    {{ blocks[0] | append: '</p>' }}
+                    {%- if blocks[1] -%}
+                        {%- assign second = blocks[1] | append: '</p>' -%}
+                        {%- if second contains '<blockquote' -%}
+                            {%- if second contains '</blockquote>' -%}{{ second }}{%- endif -%}
+                        {%- else -%}
+                            {{ second }}
+                        {%- endif -%}
+                    {%- endif -%}
+                </div>
+                <p class="post-more"><a class="icon-arrow-right" href="{{ post.url | relative_url }}">continue reading</a></p>
+            </article>
         {% endfor %}
     {% endif %}
 

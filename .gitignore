@@ -8,6 +8,9 @@
 /.gems/
 /.xdg-cache/
 /.tmp-docker/
+/.tmp-npm-cache/
+/.dev-stamp
+/.tmp-*
 
 # local GitHub credentials (never commit)
 /.github-token
