@@ -202,3 +202,13 @@ Dated entries, tagged Feature/Fix/Break.
   title is now `line-height: 1.24` and clips at 3 lines (290px), so the ink
   always fits its line box. Measured title ink height 71px -> 76px
   (unclipped reference 77px).
+
+## 2026-09-23
+
+- [Fix] Share cards render typographic quotes like the page: kramdown
+  smartens quotes in the HTML, but the cards build from stripped markdown,
+  so they showed straight ones. `tools/gen-og.mjs` now has a `smarten()`
+  step (apostrophes, opening/closing single and double quotes) applied to
+  post cards and the homepage card; all cards were regenerated.
+- [Feature] Posts: "Give it time" and "Scientia Potentia Est", both
+  spellchecked (typos and clear grammar only).

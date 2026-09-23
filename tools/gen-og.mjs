@@ -116,6 +116,18 @@ function parsePost(file) {
   return { file, title, dateRaw, slug, body };
 }
 
+// kramdown smartens quotes on the page; the card builds from stripped
+// markdown, so do the same here or the card shows straight quotes
+function smarten(text) {
+  let s = text
+    .replace(/(\w)'(\w)/g, "$1\u2019$2")      // don't, people's
+    .replace(/(\w)'(?=\s|$)/g, "$1\u2019");   // trailing possessive
+  const openAfter = /[\s(\[{<\u2014\u2013-]/;
+  s = s.replace(/"/g, (m, i, full) => (i === 0 || openAfter.test(full[i - 1]) ? "\u201C" : "\u201D"));
+  s = s.replace(/'/g, (m, i, full) => (i === 0 || openAfter.test(full[i - 1]) ? "\u2018" : "\u2019"));
+  return s;
+}
+
 function plainText(md) {
   return md
     .replace(/```[\s\S]*?```/g, " ")
@@ -154,7 +166,7 @@ function homeContent() {
 }
 
 function postCardHtml(post) {
-  const text = plainText(post.body);
+  const text = smarten(plainText(post.body));
   return page(`
   <div class="top">
     <div class="masthead">Notes and Stuff</div>
@@ -168,7 +180,7 @@ function postCardHtml(post) {
 function homeCardHtml({ masthead, subtitle }) {
   return page(`
   <h1>${esc(masthead)}</h1>
-  <p class="tagline">${esc(subtitle)}</p>`, "card-home");
+  <p class="tagline">${esc(smarten(subtitle))}</p>`, "card-home");
 }
 
 // --- render -----------------------------------------------------------------
