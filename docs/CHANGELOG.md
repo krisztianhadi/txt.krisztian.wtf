@@ -212,3 +212,7 @@ Dated entries, tagged Feature/Fix/Break.
   post cards and the homepage card; all cards were regenerated.
 - [Feature] Posts: "Give it time" and "Scientia Potentia Est", both
   spellchecked (typos and clear grammar only).
+- [Feature] Post: "The Disabled Agents" (spellchecked).
+- [Fix] Card dashes match the page: `smarten()` in tools/gen-og.mjs now also
+  converts `---` to an em dash and `--` to an en dash, the way kramdown does
+  on the page (the cards had printed them literally).

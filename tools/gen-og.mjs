@@ -120,6 +120,8 @@ function parsePost(file) {
 // markdown, so do the same here or the card shows straight quotes
 function smarten(text) {
   let s = text
+    .replace(/---/g, "\u2014")                  // --- -> em dash
+    .replace(/--/g, "\u2013")                   // --  -> en dash
     .replace(/(\w)'(\w)/g, "$1\u2019$2")      // don't, people's
     .replace(/(\w)'(?=\s|$)/g, "$1\u2019");   // trailing possessive
   const openAfter = /[\s(\[{<\u2014\u2013-]/;
