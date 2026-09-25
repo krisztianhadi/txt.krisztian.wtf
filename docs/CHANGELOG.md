@@ -216,3 +216,4 @@ Dated entries, tagged Feature/Fix/Break.
 - [Fix] Card dashes match the page: `smarten()` in tools/gen-og.mjs now also
   converts `---` to an em dash and `--` to an en dash, the way kramdown does
   on the page (the cards had printed them literally).
+- [Feature] Post: "Just use it!" (spellchecked).
