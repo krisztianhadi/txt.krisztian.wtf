@@ -79,6 +79,9 @@ const cardCss = `
     font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 78px;
     line-height: 1.24; letter-spacing: -0.02em; margin-top: 34px;
     max-height: 290px; overflow: hidden;
+    /* balance the lines so a long title does not leave one orphan word on the
+       last line (Chrome balances blocks of up to 6 lines; the guard clips at 3) */
+    text-wrap: balance;
     font-variation-settings: "opsz" ${PAGE_OPSZ.title};
   }
   h1:first-child { margin-top: 0; }

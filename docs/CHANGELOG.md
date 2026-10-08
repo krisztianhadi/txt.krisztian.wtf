@@ -217,3 +217,18 @@ Dated entries, tagged Feature/Fix/Break.
   converts `---` to an em dash and `--` to an en dash, the way kramdown does
   on the page (the cards had printed them literally).
 - [Feature] Post: "Just use it!" (spellchecked).
+
+## 2026-10-08
+
+- [Feature] Post: "Look at me, I am the client now!" (spellchecked), with its
+  share card.
+- [Fix] Local builds no longer need `.github-token`. The
+  jekyll-github-metadata plugin runs unauthenticated in `scripts/build.sh`; an
+  expired PAT used to fail the whole build with "The GitHub API credentials you
+  provided aren't valid". Nothing in the site reads `site.github.*`.
+- [Fix] `baseurl: ""` is now explicit in `_config.yml`. Left unset, the metadata
+  plugin injects `/pages/<owner>/<repo>` into an unauthenticated build, which
+  prefixes every link and asset in `_site` and 404s the local preview.
+- [Fix] Share-card titles balance their lines (`text-wrap: balance` in
+  `tools/gen-og.mjs`), so a wrapped title cannot leave one orphan word on the
+  last line. All cards regenerated: only the new card changed.

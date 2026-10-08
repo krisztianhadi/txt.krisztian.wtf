@@ -17,11 +17,15 @@ export DOCKER_CONFIG="$PWD/.tmp-docker"
 mkdir -p "$DOCKER_CONFIG" _site
 trap 'docker rm -f "$NAME" >/dev/null 2>&1' EXIT
 
-if [ ! -f .github-token ]; then
-    echo "build: .github-token missing (needed by the jekyll-github-metadata plugin)" >&2
-    exit 1
+# jekyll-github-metadata runs UNAUTHENTICATED here on purpose: nothing in this
+# site reads site.github.*, so a stored PAT only adds an expiry date to local
+# builds (2026-10-08: an expired fine-grained PAT failed the whole build with
+# "The GitHub API credentials you provided aren't valid"). Export
+# JEKYLL_GITHUB_TOKEN yourself when a build genuinely needs the API.
+TOKEN_ENV=""
+if [ -n "${JEKYLL_GITHUB_TOKEN:-}" ]; then
+    TOKEN_ENV="JEKYLL_GITHUB_TOKEN='$JEKYLL_GITHUB_TOKEN'"
 fi
-TOKEN=$(tr -d '\n' < .github-token)
 
 docker create --name "$NAME" --entrypoint /bin/sh -w /workspace "$IMAGE" -c "tail -f /dev/null" >/dev/null || exit 1
 docker cp . "$NAME":/workspace/ >/dev/null || exit 1
@@ -30,7 +34,7 @@ docker start "$NAME" >/dev/null || exit 1
 docker exec "$NAME" sh -c "cd /workspace && \
     export JEKYLL_ENV=production JEKYLL_BUILD_REVISION=local \
         PAGES_REPO_NWO=krisztianhadi/txt.krisztian.wtf \
-        JEKYLL_GITHUB_TOKEN='$TOKEN'; \
+        $TOKEN_ENV; \
     github-pages build --source /workspace --destination /workspace/_site > /tmp/build.log 2>&1; \
     echo \$? > /tmp/build.exit; \
     grep -iE 'warning|error' /tmp/build.log | head -5 || true"

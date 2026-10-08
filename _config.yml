@@ -8,6 +8,10 @@ description: >-
   Short, messy notes and thoughts from Krisztian, dumped as txt on the web.
 author: Krisztian
 url: "https://txt.krisztian.wtf"
+# Explicitly empty: the site is served from the domain root, and when baseurl
+# is left unset jekyll-github-metadata injects one - without a GitHub token it
+# falls back to /pages/<owner>/<repo>, which breaks every link in a local build.
+baseurl: ""
 
 # Optional site-wide fallback for og:image; a post's own front-matter
 # `image:` wins over this. Empty means no og:image until one exists.
