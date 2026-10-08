@@ -237,3 +237,8 @@ Dated entries, tagged Feature/Fix/Break.
   and why it expires, and the by-`head_sha` CI check. AGENTS.md (the repo's
   agent instructions) is now tracked, and `_config.yml` says what actually
   lands in `_site/` - everything, docs included.
+- [Feature] `WRITING_STYLE.md` (from the krisztian.wtf repo) is now the standing
+  authority for copy generated or touched here - meta descriptions, card blurbs,
+  docs prose. His own posts keep the narrower rule: typos and very bad grammar
+  only, voice untouched. `_config.yml` gains an `exclude` list so the file stays
+  in the repo and off the published site.

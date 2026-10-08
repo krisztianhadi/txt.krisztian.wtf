@@ -22,6 +22,17 @@ After editing a post:
 Card/font parity rules (data-URL fonts, the metric font guard, `opsz` pinning,
 `smarten()`), the staged `_deploy` CI flow and the rest: Mnemon doc `c03de6b6`.
 
+## Writing style
+
+`WRITING_STYLE.md` at the repo root is the standing authority for any copy
+written or touched here: meta/og descriptions, card blurbs, README and docs
+prose, site text. It covers voice, the banned "AI tells" list, punctuation
+(en dash for ranges, oxford comma, sentence-case headings) and structure.
+
+It does **not** loosen the post rule above: for his own posts the narrower
+typos-and-very-bad-grammar-only pass still wins, and the voice stays untouched.
+The file is excluded from the published site (see `_config.yml`).
+
 ## Verification trap
 
 Poll a GitHub Actions run by `head_sha`. Querying `?branch=main&per_page=1` once

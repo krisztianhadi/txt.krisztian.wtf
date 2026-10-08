@@ -37,5 +37,16 @@ kramdown:
   hard_wrap: false
 
 # Everything in the tree that is not a dotfile is copied/rendered into _site/,
-# docs and README.md included - the workflow uploads _site as-is, so those files
-# are reachable on the live domain (/docs/SETUP/, /README.md, /AGENTS/).
+# and the workflow uploads _site as-is - that is why /docs/SETUP/, /README.md and
+# /AGENTS/ answer on the live domain. Files listed below are the exception: they
+# stay in the repo and stay off the site. (Jekyll's own default excludes are
+# repeated here because setting `exclude` replaces them.)
+exclude:
+  - WRITING_STYLE.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
