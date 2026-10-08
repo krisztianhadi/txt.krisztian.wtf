@@ -26,7 +26,7 @@ Two github-pages gem defaults worth knowing:
 - It excludes `CNAME` from the output. The workflow therefore copies
   `CNAME` into `_site/` after the build so the artifact keeps the custom
   domain (see `.github/workflows/pages.yml`).
-- It applies the `jekyll-theme-primer` theme when the config does not name
+- It applies the `jekyll-theme-primer` theme when the config doesn't name
   one. Harmless here: `_layouts/default.html` and `post.html` always win,
   so primer only adds its unused `assets/css/style.css` to the output.
 
@@ -65,7 +65,7 @@ Two github-pages gem defaults worth knowing:
 - Shared styling comes from https://krisztian.wtf/style.css (same visual
   family as the other krisztian.wtf pages); `blog.css` only patches what
   Jekyll output needs (rouge highlight colors, code fences, post list).
-- Post dates in filenames must match reality: a future-dated file is not
+- Post dates in filenames must match reality: a future-dated file isn't
   shown unless `future: true` (set in config).
 
 ## Design
@@ -130,7 +130,7 @@ CHROME_PATH=/path/to/chromium node tools/gen-og.mjs   # if playwright browsers a
   for `assets/images/og/<slug>.png` and only then emits `og:image` +
   `twitter:image` + a `summary_large_image` card. A missing card means no
   broken image tag, never a 404.
-- Cards are committed (CI does not render them): after editing a post, run
+- Cards are committed (CI doesn't render them): after editing a post, run
   the generator and commit the PNG. `scripts/dev.sh` does this automatically
   when a file under `_posts/` changes.
 - The homepage gets a card too - `assets/images/og/home.png`, the masthead and
@@ -146,19 +146,19 @@ link post-processing is a separate build step:
 1. `.github/workflows/pages.yml` runs `python3 scripts/external-links.py _site`
    after the Jekyll build.
 2. The script adds `target="_blank" rel="noopener"` + `class="ext"` to every
-   anchor whose host is not txt.krisztian.wtf. `rel="noopener"` is mandatory
+   anchor whose host isn't txt.krisztian.wtf. `rel="noopener"` is mandatory
    with `target="_blank"` (tabnabbing protection).
 3. `assets/css/style.css` renders `.ext::after` as the same lucide
    arrow-up-right icon krisztian.wtf uses (CSS mask over `currentColor`,
    so it inherits the link color) - outbound links show the brand icon.
 4. Feed.xml is untouched (script only processes `.html` files).
 
-Reasons: Markdown has no syntax for link targets, and kramdown cannot be
+Reasons: Markdown has no syntax for link targets, and kramdown can't be
 configured to add them globally; doing it at build time keeps posts plain
 Markdown and the behavior consistent everywhere.
 
 Note on the Fraunces axes: the Google-served Fraunces that we self-host
-carries **only `opsz` and `wght`** - SOFT and WONK are not part of it, so the
+carries **only `opsz` and `wght`** - SOFT and WONK aren't part of it, so the
 site renders the standard cut at its default axis values. Anything that sets
 Fraunces explicitly (the share cards, `tools/gen-favicon.py`) must pin `opsz`
 to the size the page would use, otherwise it draws a different - text-sized -

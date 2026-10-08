@@ -32,7 +32,7 @@ bash scripts/dev.sh          # -> http://localhost:4000
 - `PORT=4100 bash scripts/dev.sh` to use another port.
 - `bs-config.js` drives browser-sync. It sets `watchOptions.usePolling`,
   which is required here: `_site/` is written by `docker cp`, and inotify
-  does not report those writes, so event-based watching never reloaded.
+  doesn't report those writes, so event-based watching never reloaded.
 - `bash scripts/build.sh` alone rebuilds `_site/` without serving.
 
 Caveat: `build.sh` merges into `_site/` instead of wiping it (so the
@@ -58,11 +58,11 @@ python3 -m http.server 4000 --directory _site
 # -> http://localhost:4000
 ```
 
-Note: inside the sandbox the container cannot bind-mount the workspace, which
+Note: inside the sandbox the container can't bind-mount the workspace, which
 is why `scripts/build.sh` copies sources in and output back out instead. Where
 mounts do work, the plain `docker run` above is equivalent.
 
-The build does not need a GitHub token: `scripts/build.sh` deliberately runs the
+The build doesn't need a GitHub token: `scripts/build.sh` deliberately runs the
 github-pages gem's jekyll-github-metadata plugin unauthenticated, and passes
 `JEKYLL_GITHUB_TOKEN` through only if you export it yourself. Nothing in the
 site reads `site.github.*`, and a stored PAT only adds an expiry date to local
@@ -85,7 +85,7 @@ jekyll serve
 Runs plain Jekyll (4.x), not the github-pages gem set - fine for
 layout/content checks, may differ in tiny details from CI. Needs the ruby
 dev headers (on Fedora/Ultramarine: `dnf install ruby-devel`); without
-them native gems (em-websocket etc.) cannot compile, so prefer Option A.
+them native gems (em-websocket etc.) can't compile, so prefer Option A.
 
 ## Fonts
 

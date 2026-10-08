@@ -38,9 +38,9 @@ Dated entries, tagged Feature/Fix/Break.
   arrow icon.
   - New build step `scripts/external-links.py` (runs after Jekyll in CI and
     in local preview): adds `target="_blank" rel="noopener"` + `class="ext"`
-    to anchors whose host is not txt.krisztian.wtf. `rel="noopener"`
+    to anchors whose host isn't txt.krisztian.wtf. `rel="noopener"`
     guards against tabnabbing.
-  - Local `_plugins` do not run in the github-pages CI container (safe
+  - Local `_plugins` don't run in the github-pages CI container (safe
     mode), so the step lives in the workflow instead.
   - `.ext::after` in `style.css` draws the lucide arrow-up-right icon
     (same as krisztian.wtf's outbound links); feed.xml untouched.
@@ -180,11 +180,11 @@ Dated entries, tagged Feature/Fix/Break.
 - [Feature] Homepage share card: `tools/gen-og.mjs` also renders
   `assets/images/og/home.png`: the masthead and tagline only, vertically
   centred, no rule, at the page's own size ratio (card 94px/30px = 3.13,
-  page 52.7px/17px = 3.1). `site.og_image` points at it, and it is refreshed
+  page 52.7px/17px = 3.1). `site.og_image` points at it, and it's refreshed
   when `_config.yml` or `index.html` changes.
 - [Fix] `tools/gen-og.mjs` inlines the self-hosted fonts as data URLs and
   proves by canvas metrics that both families really paint, aborting if they
-  do not - a `file://` font URL never loads in a `setContent` page, so every
+  don't - a `file://` font URL never loads in a `setContent` page, so every
   card had silently been rendering in Georgia since the fonts were
   self-hosted.
 - [Fix] Share cards now reproduce the page's letterforms exactly. Fraunces
@@ -230,7 +230,7 @@ Dated entries, tagged Feature/Fix/Break.
   plugin injects `/pages/<owner>/<repo>` into an unauthenticated build, which
   prefixes every link and asset in `_site` and 404s the local preview.
 - [Fix] Share-card titles balance their lines (`text-wrap: balance` in
-  `tools/gen-og.mjs`), so a wrapped title cannot leave one orphan word on the
+  `tools/gen-og.mjs`), so a wrapped title can't leave one orphan word on the
   last line. All cards regenerated: only the new card changed.
 - [Feature] README carries the standard "Built with AI" disclosure.
   docs/SETUP.md documents the token-free local build, where the push PAT lives
@@ -242,3 +242,8 @@ Dated entries, tagged Feature/Fix/Break.
   docs prose. His own posts keep the narrower rule: typos and very bad grammar
   only, voice untouched. `_config.yml` gains an `exclude` list so the file stays
   in the repo and off the published site.
+- [Fix] Copy audit against `WRITING_STYLE.md`: no banned "AI tells" anywhere, in
+  the posts or in the generated copy (site description, meta/og text, card
+  blurbs). Two follow-ups landed. The numeric range in "Give it time" uses an en
+  dash now (24–32), and the docs prose takes the guide's contractions (doesn't,
+  isn't, can't, it's). His posts otherwise stay voice-untouched.

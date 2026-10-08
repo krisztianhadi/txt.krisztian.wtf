@@ -21,7 +21,7 @@ With AI we just pile up _"done"_ tasks and we don't care if it was actually what
 
 We just ship, scale, deliver. And it became so _"cheap"_ especially in time it doesn't carry the same weight as before. It becomes weightless and valueless.
 
-And yes, it happened few times in our lifetime already; exactly how digital devices replaced analog ones, losing meaning and value from the process. We don't think before a photo, we don't frame, we don't judge, we just shoot 200 images because it's _"free"_ and we are not limited anymore by the 24-32 frames on a roll of film. 30 years ago people spent more time on composition - and maybe never pushed the button - than we spend today on end-to-end photography. 
+And yes, it happened few times in our lifetime already; exactly how digital devices replaced analog ones, losing meaning and value from the process. We don't think before a photo, we don't frame, we don't judge, we just shoot 200 images because it's _"free"_ and we are not limited anymore by the 24–32 frames on a roll of film. 30 years ago people spent more time on composition - and maybe never pushed the button - than we spend today on end-to-end photography. 
 
 ### So what's my point? 
 
