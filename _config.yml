@@ -36,5 +36,6 @@ kramdown:
   input: GFM
   hard_wrap: false
 
-# Only files needed by the build are copied/rendered; everything else (docs,
-# workflows) stays out of _site.
+# Everything in the tree that is not a dotfile is copied/rendered into _site/,
+# docs and README.md included - the workflow uploads _site as-is, so those files
+# are reachable on the live domain (/docs/SETUP/, /README.md, /AGENTS/).

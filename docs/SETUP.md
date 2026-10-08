@@ -62,9 +62,17 @@ Note: inside the sandbox the container cannot bind-mount the workspace, which
 is why `scripts/build.sh` copies sources in and output back out instead. Where
 mounts do work, the plain `docker run` above is equivalent.
 
-The build does not need a token locally, but the github-pages gem's
-jekyll-github-metadata plugin does talk to api.github.com at build time; on
-a slow/offline network the build can stall there (CI is unaffected - it
+The build does not need a GitHub token: `scripts/build.sh` deliberately runs the
+github-pages gem's jekyll-github-metadata plugin unauthenticated, and passes
+`JEKYLL_GITHUB_TOKEN` through only if you export it yourself. Nothing in the
+site reads `site.github.*`, and a stored PAT only adds an expiry date to local
+builds - on 2026-10-08 an expired fine-grained token failed the whole build with
+"The GitHub API credentials you provided aren't valid".
+
+Unauthenticated, that plugin falls back to injecting `baseurl:
+/pages/<owner>/<repo>`, which prefixes every link and asset; `_config.yml`
+therefore pins `baseurl: ""` explicitly. The plugin still calls api.github.com,
+so on a slow/offline network the build can stall there (CI is unaffected - it
 gets a real token automatically).
 
 ### Option B - plain jekyll (machine with ruby-dev headers)
@@ -110,9 +118,27 @@ See README "Write a post". After editing:
 - rebuild (option A or B above) and eyeball the post page, the homepage
   list and `/feed.xml`.
 
+## Push credentials
+
+Pushing needs a fine-grained GitHub PAT with `Contents: write` on
+`krisztianhadi/txt.krisztian.wtf`, read from `.github-token` (gitignored, never
+committed). These PATs are issued with an expiry date, so they die on that date
+and the API answers 401 - issue a new one and drop it in the same file.
+
+Keep the token out of `.git/config` and the transcript: pass it through
+`GIT_ASKPASS` instead of a `https://<token>@github.com/...` remote URL.
+
+```sh
+printf '#!/bin/sh\ncase "$1" in *sername*) printf x-access-token;; *) cat "$GH_TOKEN_FILE";; esac\n' > .tmp-askpass.sh
+GH_TOKEN_FILE="$PWD/.github-token" GIT_ASKPASS="$PWD/.tmp-askpass.sh" \
+  GIT_TERMINAL_PROMPT=0 git push origin main
+```
+
 ## Deploy checklist
 
 1. Local preview looks right.
 2. Push to `main` (feature commit).
 3. Actions run finishes green; site + feed live on txt.krisztian.wtf.
+   Poll the run by the pushed `head_sha` - querying `?branch=main&per_page=1`
+   can match the previous run and report a false green.
 4. Sanity: `/feed.xml` parses (e.g. https://validator.w3.org/feed/).

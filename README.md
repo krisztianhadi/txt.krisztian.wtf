@@ -41,6 +41,13 @@ summary) and `image` (overrides the generated card).
 Push to `main` on GitHub. Requires the one-time repo setting
 Settings -> Pages -> Source: "GitHub Actions" (see docs/SETUP.md).
 
+## Built with AI
+
+Hand-written and AI-enhanced. The posts, the specification, the decisions and
+the review are mine; the site that serves them was built with DeepSeek V4.1
+Flash in DeepSeek Harness. The commit history and
+[docs/CHANGELOG.md](docs/CHANGELOG.md) show which parts came from where.
+
 ## Docs
 
 - [docs/INDEX.md](docs/INDEX.md) - overview

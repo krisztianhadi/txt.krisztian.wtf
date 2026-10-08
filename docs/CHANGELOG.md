@@ -232,3 +232,8 @@ Dated entries, tagged Feature/Fix/Break.
 - [Fix] Share-card titles balance their lines (`text-wrap: balance` in
   `tools/gen-og.mjs`), so a wrapped title cannot leave one orphan word on the
   last line. All cards regenerated: only the new card changed.
+- [Feature] README carries the standard "Built with AI" disclosure.
+  docs/SETUP.md documents the token-free local build, where the push PAT lives
+  and why it expires, and the by-`head_sha` CI check. AGENTS.md (the repo's
+  agent instructions) is now tracked, and `_config.yml` says what actually
+  lands in `_site/` - everything, docs included.
